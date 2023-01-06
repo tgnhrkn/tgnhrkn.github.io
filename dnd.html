@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dice Roller</title>
+  </head>
+  <body>
+    <h1>Dice Roller</h1>
+    <p>Enter the number of dice to roll and the type of dice in the form "XdY", where X is the number of dice and Y is the type of dice (e.g. "2d6" for rolling two 6-sided dice).</p>
+    <input type="text" id="diceInput" placeholder="Enter dice to roll">
+    <button id="rollButton">Roll</button>
+    <p id="result"></p>
+    <script>
+      const rollButton = document.getElementById("rollButton");
+      const diceInput = document.getElementById("diceInput");
+      const result = document.getElementById("result");
+
+      rollButton.addEventListener("click", function() {
+        let diceString = diceInput.value;
+        let diceRegex = /(\d+)d(\d+)/;
+        let match = diceRegex.exec(diceString);
+        if (match) {
+          let numDice = parseInt(match[1]);
+          let diceType = parseInt(match[2]);
+          let total = 0;
+          for (let i = 0; i < numDice; i++) {
+            total += Math.floor(Math.random() * diceType) + 1;
+          }
+          result.textContent = "Total: " + total;
+        } else {
+          result.textContent = "Invalid dice string. Please enter the number of dice and the type of dice in the form 'XdY', where X is the number of dice and Y is the type of dice (e.g. '2d6' for rolling two 6-sided dice).";
+        }
+      });
+    </script>
+  </body>
+</html>
